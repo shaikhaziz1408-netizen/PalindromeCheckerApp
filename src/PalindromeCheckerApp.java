@@ -1,51 +1,47 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.LinkedList;
 
 /**
  * ======================================================================
  * MAIN CLASS - PalindromeCheckerApp
  * ======================================================================
- * * Use Case 7: Deque Based Optimized Palindrome Checker
+ * * Use Case 8: Linked List Based Palindrome Checker
  * * Description:
- * This class validates a palindrome using a Deque
- * (Double Ended Queue).
- * * Characters are inserted into the deque and then
- * compared by removing elements from both ends:
+ * This class checks whether a string is a palindrome
+ * using a LinkedList.
+ * * Characters are added to the list and then compared
+ * by removing elements from both ends:
  * * - removeFirst()
  * - removeLast()
- * * This avoids reversing the string and provides an
- * efficient front-to-back comparison approach.
- * * This use case demonstrates optimal bidirectional
- * traversal using Deque.
+ * * This demonstrates how LinkedList supports
+ * double-ended operations for symmetric validation.
  * * @author Developer
- * @version 7.0
+ * @version 8.0
  */
 public class PalindromeCheckerApp {
 
     /**
-     * Application entry point for UC7.
+     * Application entry point for UC8.
      * * @param args Command-line arguments
      */
     public static void main(String[] args) {
         // Define the input string to validate
-        String input = "refer";
+        String input = "level";
 
-        // Create a Deque to store characters
-        Deque<Character> deque = new ArrayDeque<>();
+        // Create a LinkedList to store characters
+        LinkedList<Character> list = new LinkedList<>();
 
-        // Add each character to the deque
+        // Add each character to the linked list
         for (char c : input.toCharArray()) {
-            deque.addLast(c); // Or just deque.add(c)
+            list.add(c); // Adds to the end of the list
         }
 
-        // Flag to track palindrome result
+        // Flag to track palindrome state
         boolean isPalindrome = true;
 
-        // Continue comparison while more than one element exists
-        // (If only 1 element is left in an odd-length word, it's the middle character)
-        while (deque.size() > 1) {
-            // Compare the front and the rear elements
-            if (deque.removeFirst() != deque.removeLast()) {
+        // Compare until only one or zero elements remain
+        while (list.size() > 1) {
+            // Compare the first and last elements
+            if (list.removeFirst() != list.removeLast()) {
                 isPalindrome = false;
                 break; // Exit early if a mismatch is found
             }
