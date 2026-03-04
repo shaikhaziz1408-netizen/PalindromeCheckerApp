@@ -2,55 +2,47 @@
  * ======================================================================
  * MAIN CLASS - PalindromeCheckerApp
  * ======================================================================
- * * Use Case 9: Recursive Palindrome Checker
+ * * Use Case 10: Normalized Palindrome Validation
  * * Description:
- * This class validates a palindrome using recursion.
- * * Characters are compared from the outer positions
- * moving inward using recursive calls.
- * * The recursion stops when:
- * - All characters are matched, or
- * - A mismatch is found.
- * * This use case demonstrates divide-and-conquer
- * logic using method recursion.
+ * This class validates a palindrome after preprocessing
+ * the input string.
+ * * Normalization includes:
+ * - Removing spaces and symbols
+ * - Converting to lowercase
+ * * This ensures the palindrome check is logical rather
+ * than character-format dependent.
+ * * Example:
+ * "A man a plan a canal Panama"
  * * @author Developer
- * @version 9.0
+ * @version 10.0
  */
 public class PalindromeCheckerApp {
 
     /**
-     * Application entry point for UC9.
+     * Application entry point for UC10.
      * * @param args Command-line arguments
      */
     public static void main(String[] args) {
-        String input = "madam";
+        // Input string with mixed case and spaces
+        String input = "A man a plan a canal Panama";
 
-        // Initial call to the recursive method
-        boolean isPalindrome = check(input, 0, input.length() - 1);
+        // Preprocessing: Remove all non-alphanumeric characters and convert to lowercase
+        // [^a-zA-Z0-9] is a regular expression that finds symbols and spaces
+        String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+        boolean isPalindrome = true;
+
+        // Compare characters from both ends (Logic from previous hints)
+        for (int i = 0; i < normalized.length() / 2; i++) {
+            // Compare symmetric characters
+            if (normalized.charAt(i) != normalized.charAt(normalized.length() - 1 - i)) {
+                isPalindrome = false;
+                break;
+            }
+        }
 
         // Console Output
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + isPalindrome);
-    }
-
-    /**
-     * Recursively checks whether a string is a palindrome.
-     * * @param s     Input string
-     * @param start Starting index
-     * @param end   Ending index
-     * @return true if palindrome, otherwise false
-     */
-    private static boolean check(String s, int start, int end) {
-        // Base Condition: If pointers cross, all characters matched
-        if (start >= end) {
-            return true;
-        }
-
-        // Check if characters at current positions match
-        if (s.charAt(start) != s.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call moving pointers inward
-        return check(s, start + 1, end - 1);
     }
 }
